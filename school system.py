@@ -1,11 +1,15 @@
+# ================================================================
 # SCHOOL MANAGEMENT SYSTEM
 # Demonstrates all OOP and SOLID Principles
+# ================================================================
 
 from abc import ABC, abstractmethod
 
 
+# ================================================================
 # PERSON CLASS - Abstract Base Class
 # Demonstrates: Abstraction, Encapsulation
+# ================================================================
 
 class Person(ABC):
     """Abstract base class for all people in school"""
@@ -65,8 +69,10 @@ class Person(ABC):
         return len(phone) >= 10
 
 
+# ================================================================
 # STUDENT CLASS
 # Demonstrates: Inheritance, Polymorphism
+# ================================================================
 
 class Student(Person):
     """Student class that inherits from Person"""
@@ -135,9 +141,10 @@ class Student(Person):
         return grade >= 50
 
 
-
+# ================================================================
 # TEACHER CLASS
 # Demonstrates: Inheritance, Polymorphism
+# ================================================================
 
 class Teacher(Person):
     """Teacher class that inherits from Person"""
@@ -210,9 +217,10 @@ class Teacher(Person):
         return salary * 0.15
 
 
-
+# ================================================================
 # STUDENT MANAGER CLASS
 # Demonstrates: Single Responsibility Principle (SRP)
+# ================================================================
 
 class StudentManager:
     """Manages all student operations - Single Responsibility"""
@@ -241,8 +249,10 @@ class StudentManager:
         return len(self._students)
 
 
+# ================================================================
 # TEACHER MANAGER CLASS
 # Demonstrates: Single Responsibility Principle (SRP)
+# ================================================================
 
 class TeacherManager:
     """Manages all teacher operations - Single Responsibility"""
@@ -271,8 +281,10 @@ class TeacherManager:
         return len(self._teachers)
 
 
+# ================================================================
 # GRADE CALCULATOR CLASS
 # Demonstrates: Open/Closed Principle (OCP)
+# ================================================================
 
 class GradeCalculator:
     """Base calculator - Open for extension, closed for modification"""
@@ -309,8 +321,10 @@ class GradeCalculator:
         return total / len(grades_dict)
 
 
+# ================================================================
 # ADVANCED GRADE CALCULATOR CLASS
 # Demonstrates: Open/Closed Principle (OCP) - Extension
+# ================================================================
 
 class AdvancedGradeCalculator(GradeCalculator):
     """Extended calculator - adds features without modifying base class"""
@@ -327,8 +341,10 @@ class AdvancedGradeCalculator(GradeCalculator):
             return "Fail"
 
 
+# ================================================================
 # NOTIFIABLE INTERFACE
 # Demonstrates: Interface Segregation Principle (ISP)
+# ================================================================
 
 class Notifiable(ABC):
     """Small, focused interface for notifications"""
@@ -339,8 +355,10 @@ class Notifiable(ABC):
         pass
 
 
+# ================================================================
 # EMAIL NOTIFICATION CLASS
 # Demonstrates: Liskov Substitution Principle (LSP)
+# ================================================================
 
 class EmailNotification(Notifiable):
     """Email notification implementation"""
@@ -351,8 +369,10 @@ class EmailNotification(Notifiable):
         return True
 
 
+# ================================================================
 # SMS NOTIFICATION CLASS
 # Demonstrates: Liskov Substitution Principle (LSP)
+# ================================================================
 
 class SMSNotification(Notifiable):
     """SMS notification implementation - can substitute EmailNotification"""
@@ -363,8 +383,10 @@ class SMSNotification(Notifiable):
         return True
 
 
+# ================================================================
 # REPORT GENERATOR CLASS
 # Demonstrates: Dependency Inversion Principle (DIP)
+# ================================================================
 
 class ReportGenerator:
     """Generates reports - depends on Notifiable interface, not concrete class"""
@@ -387,7 +409,9 @@ class ReportGenerator:
         return self._notifier.send_notification(report)
 
 
+# ================================================================
 # SCHOOL CLASS - Main System
+# ================================================================
 
 class School:
     """Main school management system"""
@@ -456,9 +480,9 @@ class School:
         return stats
 
 
-
+# ================================================================
 # MAIN PROGRAM
-
+# ================================================================
 
 def main():
     """Main demonstration program"""
