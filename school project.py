@@ -196,7 +196,7 @@ class SchoolGUI:
             s=Student(*r)
             tree.insert("", "end", values=(s.id,s.name,s.age,s.phone,s.grade,s.student_class,f"{s.average():.2f}"))
 
-    # ---------------- Show Teachers ----------------
+    #  Show Teachers 
     def show_teachers(self):
         win=tk.Toplevel(self.root)
         win.title("All Teachers")
