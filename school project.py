@@ -2,7 +2,7 @@ import sqlite3
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-# ---------------- Database Functions ----------------
+#  Database Functions 
 def init_db():
     conn=sqlite3.connect("school.db")
     cursor=conn.cursor()
@@ -78,7 +78,7 @@ def load_feedback():
     conn.close()
     return rows
 
-# ---------------- Classes ----------------
+#  Classes 
 class Student:
     def __init__(self,id,name,age,phone,grade,student_class):
         self.id=id
@@ -106,7 +106,7 @@ class Teacher:
         self.salary=salary
         self.classes=[]
 
-# ---------------- GUI ----------------
+# GUI
 class SchoolGUI:
     def __init__(self,root):
         self.root=root
@@ -135,7 +135,7 @@ class SchoolGUI:
         tk.Button(frame,text="Show Feedback",width=18,bg="#95a5a6",fg="white",
                   command=self.show_feedback).grid(row=1,column=2,padx=5,pady=5)
 
-    # ---------------- Student Window ----------------
+    #  Student Window
     def add_student_window(self):
         win=tk.Toplevel(self.root)
         win.title("Add Student")
@@ -157,7 +157,7 @@ class SchoolGUI:
 
         tk.Button(win,text="Add Student",bg="#3498db",fg="white",command=add_student_action).pack(pady=10)
 
-    # ---------------- Teacher Window ----------------
+    # Teacher Window 
     def add_teacher_window(self):
         win=tk.Toplevel(self.root)
         win.title("Add Teacher")
@@ -179,7 +179,7 @@ class SchoolGUI:
 
         tk.Button(win,text="Add Teacher",bg="#e67e22",fg="white",command=add_teacher_action).pack(pady=10)
 
-    # ---------------- Show Students ----------------
+    # Show Students 
     def show_students(self):
         win=tk.Toplevel(self.root)
         win.title("All Students")
@@ -212,7 +212,7 @@ class SchoolGUI:
         for r in load_teachers():
             tree.insert("", "end", values=r)
 
-    # ---------------- Feedback ----------------
+    #  Feedback 
     def add_feedback_window(self):
         win=tk.Toplevel(self.root)
         win.title("Add Feedback")
@@ -244,7 +244,7 @@ class SchoolGUI:
         for r in load_feedback():
             tree.insert("", "end", values=r)
 
-# ---------------- Main ----------------
+# Main 
 if __name__=="__main__":
     init_db()
     root=tk.Tk()
