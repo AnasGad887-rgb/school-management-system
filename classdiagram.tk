@@ -1,0 +1,32 @@
+_________________________
+                      |      SCHOOLGUI        |
+                      | --------------------  |
+                      |-root                  |
+                      ________________________
+                      |+create_widgets()      |
+                      |+add_student_window()  |
+                      |+add_teacher_window()  |
+                      |+show_students()       |
+                      |+show_teacher()        |
+                      |+add_feedback_window() |
+                      |+show_feedback()       |
+                      _________________________
+                                  |
+                                  |
+         ________________________ | _____________________________
+         |                                                       |
+         |                                                       |
+ _____________________                                 _______________________
+ |      student       |                                |      teacher         |
+ ----------------------                                 ----------------------
+ |#id:int             |                                |#id:int               |
+ |-name:text          |                                |-name:text            |
+ |-age:int            |                                |-age:int              |
+ |-phone:text         |                                |-classes:list         |
+ |-grade:int          |                                 _______________________
+ |-class:text         |
+ ______________________
+ |add()               |
+ |avarage()           |
+ ______________________
+# dependency
