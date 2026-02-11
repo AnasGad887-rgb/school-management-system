@@ -2,37 +2,37 @@ import sqlite3
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-# ---------------- Database Functions ----------------
+# Database Functions
 def init_db():
     conn=sqlite3.connect("school.db")
     cursor=conn.cursor()
-    cursor.execute("""CREATE TABLE IF NOT EXISTS students (
-                        id TEXT PRIMARY KEY,
-                        name TEXT,
-                        age INTEGER,
-                        phone TEXT,
-                        grade INTEGER,
-                        student_class TEXT)""")
-    cursor.execute("""CREATE TABLE IF NOT EXISTS teachers (
-                        id TEXT PRIMARY KEY,
-                        name TEXT,
-                        age INTEGER,
-                        phone TEXT,
-                        subject TEXT,
-                        salary REAL)""")
-    cursor.execute("""CREATE TABLE IF NOT EXISTS feedback (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        person_id TEXT,
-                        role TEXT,
-                        comment TEXT)""")
+    cursor.execute("""create table if not exists students (
+                        id text primary key,
+                        name text,
+                        age integer,
+                        phone text,
+                        grade integer,
+                        student_class text)""")
+    cursor.execute(""" create table if not exists teachers (
+                        id text primary key,
+                        name text,
+                        age integer,
+                        phone text,
+                        subject text,
+                        salary real)""")
+    cursor.execute("""create table if not exists feedback (
+                        id integer primary key autoincrement,
+                        person_id text,
+                        role text,
+                        comment text)""")
     conn.commit()
     conn.close()
 
 def add_student_to_db(s):
     conn=sqlite3.connect("school.db")
     cursor=conn.cursor()
-    cursor.execute("""INSERT OR REPLACE INTO students (id,name,age,phone,grade,student_class)
-                      VALUES (?,?,?,?,?,?)""",
+    cursor.execute("""insert  into students (id,name,age,phone,grade,student_class)
+                      values (?,?,?,?,?,?)""",
                    (s.id,s.name,s.age,s.phone,s.grade,s.student_class))
     conn.commit()
     conn.close()
@@ -40,8 +40,8 @@ def add_student_to_db(s):
 def add_teacher_to_db(t):
     conn=sqlite3.connect("school.db")
     cursor=conn.cursor()
-    cursor.execute("""INSERT OR REPLACE INTO teachers (id,name,age,phone,subject,salary)
-                      VALUES (?,?,?,?,?,?)""",
+    cursor.execute("""insert into teacher (id,name,age,phone,subject,salary)
+                      values (?,?,?,?,?,?)""",
                    (t.id,t.name,t.age,t.phone,t.subject,t.salary))
     conn.commit()
     conn.close()
@@ -49,7 +49,7 @@ def add_teacher_to_db(t):
 def add_feedback(person_id,role,comment):
     conn=sqlite3.connect("school.db")
     cursor=conn.cursor()
-    cursor.execute("INSERT INTO feedback (person_id,role,comment) VALUES (?,?,?)",
+    cursor.execute("insert into feedback (person_id,role,comment) values (?,?,?)",
                    (person_id,role,comment))
     conn.commit()
     conn.close()
@@ -57,7 +57,7 @@ def add_feedback(person_id,role,comment):
 def load_students():
     conn=sqlite3.connect("school.db")
     cursor=conn.cursor()
-    cursor.execute("SELECT * FROM students ORDER BY id")
+    cursor.execute("select * from students order by id")
     rows=cursor.fetchall()
     conn.close()
     return rows
@@ -65,7 +65,7 @@ def load_students():
 def load_teachers():
     conn=sqlite3.connect("school.db")
     cursor=conn.cursor()
-    cursor.execute("SELECT * FROM teachers ORDER BY id")
+    cursor.execute("select * from teachers order by id")
     rows=cursor.fetchall()
     conn.close()
     return rows
@@ -73,12 +73,12 @@ def load_teachers():
 def load_feedback():
     conn=sqlite3.connect("school.db")
     cursor=conn.cursor()
-    cursor.execute("SELECT * FROM feedback ORDER BY id DESC")
+    cursor.execute("select * from feedback order by id DESC")
     rows=cursor.fetchall()
     conn.close()
     return rows
 
-# ---------------- Classes ----------------
+#  Classes
 class Student:
     def __init__(self,id,name,age,phone,grade,student_class):
         self.id=id
@@ -106,36 +106,36 @@ class Teacher:
         self.salary=salary
         self.classes=[]
 
-# ---------------- GUI ----------------
+#  GUI
 class SchoolGUI:
     def __init__(self,root):
         self.root=root
         self.root.title("School Management System")
         self.root.geometry("900x600")
-        self.root.configure(bg="#f0f0f0")
+        self.root.configure(bg= "tan")
         self.create_widgets()
 
     def create_widgets(self):
-        tk.Label(self.root,text="Bright Future School",font=("Arial",24,"bold"),
-                 bg="#f0f0f0",fg="#2c3e50").pack(pady=20)
+        tk.Label(self.root,text="Backline school",font=("Arial",24,"bold"),
+                 bg="gray",fg="#2c3e50").pack(pady=20)
 
-        frame=tk.Frame(self.root,bg="#f0f0f0")
+        frame=tk.Frame(self.root,bg="lightgray")
         frame.pack(pady=10)
 
-        tk.Button(frame,text="Add Student",width=18,bg="#3498db",fg="white",
+        tk.Button(frame,text="Add Student",width=18,bg="navy blue",fg="light gray",
                   command=self.add_student_window).grid(row=0,column=0,padx=5,pady=5)
-        tk.Button(frame,text="Add Teacher",width=18,bg="#e67e22",fg="white",
+        tk.Button(frame,text="Add Teacher",width=18,bg="blue",fg="light gray",
                   command=self.add_teacher_window).grid(row=0,column=1,padx=5,pady=5)
-        tk.Button(frame,text="Show Students",width=18,bg="#9b59b6",fg="white",
+        tk.Button(frame,text="Show Students",width=18,bg="light blue",fg="gray",
                   command=self.show_students).grid(row=0,column=2,padx=5,pady=5)
-        tk.Button(frame,text="Show Teachers",width=18,bg="#1abc9c",fg="white",
+        tk.Button(frame,text="Show Teachers",width=18,bg="maroon",fg="light gray",
                   command=self.show_teachers).grid(row=1,column=0,padx=5,pady=5)
-        tk.Button(frame,text="Add Feedback",width=18,bg="#f39c12",fg="white",
+        tk.Button(frame,text="Add Feedback",width=18,bg="firebrick",fg="light gray",
                   command=self.add_feedback_window).grid(row=1,column=1,padx=5,pady=5)
-        tk.Button(frame,text="Show Feedback",width=18,bg="#95a5a6",fg="white",
+        tk.Button(frame,text="Show Feedback",width=18,bg="lightcoral",fg="gray",
                   command=self.show_feedback).grid(row=1,column=2,padx=5,pady=5)
 
-    # ---------------- Student Window ----------------
+    #  Student Window
     def add_student_window(self):
         win=tk.Toplevel(self.root)
         win.title("Add Student")
@@ -155,9 +155,9 @@ class SchoolGUI:
             messagebox.showinfo("Success",f"Student {s.name} added!")
             win.destroy()
 
-        tk.Button(win,text="Add Student",bg="#3498db",fg="white",command=add_student_action).pack(pady=10)
+        tk.Button(win,text="Add Student",bg="navyblue",fg="white",command=add_student_action).pack(pady=10)
 
-    # ---------------- Teacher Window ----------------
+    #  Teacher Window
     def add_teacher_window(self):
         win=tk.Toplevel(self.root)
         win.title("Add Teacher")
@@ -177,9 +177,9 @@ class SchoolGUI:
             messagebox.showinfo("Success",f"Teacher {t.name} added!")
             win.destroy()
 
-        tk.Button(win,text="Add Teacher",bg="#e67e22",fg="white",command=add_teacher_action).pack(pady=10)
+        tk.Button(win,text="Add Teacher",bg="blue",fg="white",command=add_teacher_action).pack(pady=10)
 
-    # ---------------- Show Students ----------------
+    #  Show Students
     def show_students(self):
         win=tk.Toplevel(self.root)
         win.title("All Students")
@@ -196,7 +196,7 @@ class SchoolGUI:
             s=Student(*r)
             tree.insert("", "end", values=(s.id,s.name,s.age,s.phone,s.grade,s.student_class,f"{s.average():.2f}"))
 
-    # ---------------- Show Teachers ----------------
+    #  Show Teachers
     def show_teachers(self):
         win=tk.Toplevel(self.root)
         win.title("All Teachers")
@@ -212,7 +212,7 @@ class SchoolGUI:
         for r in load_teachers():
             tree.insert("", "end", values=r)
 
-    # ---------------- Feedback ----------------
+    #  Feedback
     def add_feedback_window(self):
         win=tk.Toplevel(self.root)
         win.title("Add Feedback")
@@ -227,7 +227,7 @@ class SchoolGUI:
             add_feedback(id_entry.get(),role_entry.get(),comment_entry.get("1.0",tk.END).strip())
             messagebox.showinfo("Success","Feedback added!")
             win.destroy()
-        tk.Button(win,text="Add Feedback",bg="#f39c12",fg="white",command=save_feedback).pack(pady=10)
+        tk.Button(win,text="Add Feedback",bg="firebrick",fg="white",command=save_feedback).pack(pady=10)
 
     def show_feedback(self):
         win=tk.Toplevel(self.root)
@@ -244,9 +244,14 @@ class SchoolGUI:
         for r in load_feedback():
             tree.insert("", "end", values=r)
 
-# ---------------- Main ----------------
+#  Main
 if __name__=="__main__":
     init_db()
     root=tk.Tk()
     app=SchoolGUI(root)
     root.mainloop()
+
+
+
+             
+           
